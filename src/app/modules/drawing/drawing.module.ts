@@ -1,21 +1,22 @@
 import { NgModule } from '@angular/core';
 
 import { CanvasComponent } from './canvas/canvas.component';
-import { DrawingCoreService } from './drawing-core.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { ContainerComponent } from './container/container.component';
+import { DrawingLibraryService } from './drawing-library.service';
 
 @NgModule({
     imports: [],
     declarations: [
         CanvasComponent,
-        ToolbarComponent
+        ToolbarComponent,
+        ContainerComponent
     ],
     exports: [
-        CanvasComponent,
-        ToolbarComponent
+        ContainerComponent
     ],
     providers: [
-        DrawingCoreService
+        DrawingLibraryService
     ]
 })
 export class DrawingModule {}

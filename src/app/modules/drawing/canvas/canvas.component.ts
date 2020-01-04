@@ -1,6 +1,8 @@
 import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 
 import { DrawingCoreService } from '../drawing-core.service';
+import { DrawingLibraryService } from '../drawing-library.service';
+import { DirectionalLight } from 'three';
 
 @Component({
     selector: 'app-canvas',
@@ -16,11 +18,17 @@ export class CanvasComponent implements AfterViewInit {
         this.canvas = value;
     }
 
-    constructor(private readonly drawingCoreService: DrawingCoreService) {}
+    constructor(
+        private readonly drawingCoreService: DrawingCoreService,
+        private readonly drawingLibraryService: DrawingLibraryService
+    ) {}
 
     public ngAfterViewInit(): void {
         if (this.canvas) {
+            const light: DirectionalLight = this.drawingLibraryService.getDirectionalLight();
+
             this.drawingCoreService.initialization(this.canvas.nativeElement);
+            this.drawingCoreService.addObjectToScene(light);
         } else {
             console.error('canvas: ', this.canvas);
         }

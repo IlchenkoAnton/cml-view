@@ -1,6 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-
-import { DrawingCoreService } from '../drawing-core.service';
+import { Component, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-toolbar',
@@ -9,13 +7,19 @@ import { DrawingCoreService } from '../drawing-core.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarComponent {
-    constructor(private readonly drawingCoreService: DrawingCoreService) {}
+    @Output()
+    public addCube: EventEmitter<void> = new EventEmitter<void>();
 
-    public addSphere(): void {
-        //
+    @Output()
+    public addSphere: EventEmitter<void> = new EventEmitter<void>();
+
+    constructor() {}
+
+    public selectCube(): void {
+        this.addCube.emit();
     }
 
-    public addCube(): void {
-        this.drawingCoreService.drawCube();
+    public selectSphere(): void {
+        this.addSphere.emit();
     }
 }
