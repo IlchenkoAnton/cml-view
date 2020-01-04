@@ -9,16 +9,20 @@ import { DrawingCoreService } from '../drawing-core.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CanvasComponent implements AfterViewInit {
-    private canvasContainer: ElementRef;
+    private canvas: ElementRef;
 
-    @ViewChild('canvasContainer', { static: false })
+    @ViewChild('canvas', { static: false })
     set CanvasContainer(value: ElementRef) {
-        this.canvasContainer = value;
+        this.canvas = value;
     }
 
     constructor(private readonly drawingCoreService: DrawingCoreService) {}
 
     public ngAfterViewInit(): void {
-        this.drawingCoreService.initialization(this.canvasContainer);
+        if (this.canvas) {
+            this.drawingCoreService.initialization(this.canvas.nativeElement);
+        } else {
+            console.error('canvas: ', this.canvas);
+        }
     }
 }

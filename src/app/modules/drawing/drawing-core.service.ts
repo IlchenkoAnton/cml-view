@@ -1,5 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { Scene, PerspectiveCamera, WebGLRenderer } from 'three';
+import { Scene, PerspectiveCamera, WebGLRenderer, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
 
 @Injectable()
 export class DrawingCoreService {
@@ -19,16 +19,25 @@ export class DrawingCoreService {
         return this.renderer;
     }
 
-    public initialization(container: ElementRef): void {
-        const width: number = container.nativeElement.clientWidth;
-        const height: number = container.nativeElement.clientHeight;
+    public initialization(canvas: HTMLCanvasElement): void {
+        const fov: number = 75; // Угол обзора камеры
+        const aspect: number = canvas.clientWidth / canvas.clientHeight; // Соотношение сторон
+        const near: number = 0.1; // Ближняя граница просмотра камеры
+        const far: number = 5; // Дальняя граница просмотра камеры
 
+        this.renderer = new WebGLRenderer({ canvas });
+        this.camera = new PerspectiveCamera(fov, aspect, near, far);
         this.scene = new Scene();
-        this.camera = new PerspectiveCamera(75, width / height, 0.1, 1000);
-        this.renderer = new WebGLRenderer();
 
-        this.renderer.setSize(width, height);
+        this.camera.position.z = 2;
+    }
 
-        container.nativeElement.appendChild(this.renderer.domElement);
+    public drawCube(): void {
+        const geometry: BoxGeometry = new BoxGeometry(1, 1, 1);
+        const material: MeshBasicMaterial = new MeshBasicMaterial({ color: 0x44aa88 });
+        const cube: Mesh = new Mesh(geometry, material);
+
+        this.scene.add(cube);
+        this.renderer.render(this.scene, this.camera);
     }
 }
