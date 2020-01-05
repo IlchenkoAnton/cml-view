@@ -4,7 +4,8 @@ import {
     PerspectiveCamera,
     WebGLRenderer,
     Object3D,
-    Mesh
+    Mesh,
+    Color
 } from 'three';
 import * as _ from 'lodash';
 
@@ -38,6 +39,7 @@ export class DrawingCoreService {
 
         this.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
         this.camera.position.z = 3;
+        this.scene.background = new Color(0xffffe0);
     }
 
     public addObjectToScene(obj: Object3D): void {
