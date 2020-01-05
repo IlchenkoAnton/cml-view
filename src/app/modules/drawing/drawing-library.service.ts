@@ -4,7 +4,11 @@ import {
     BoxGeometry,
     MeshPhongMaterial,
     DirectionalLight,
-    SphereGeometry
+    SphereGeometry,
+    Geometry,
+    LineBasicMaterial,
+    Line,
+    Vector3
 } from 'three';
 
 @Injectable()
@@ -29,6 +33,19 @@ export class DrawingLibraryService {
         const material: MeshPhongMaterial = this.getDefaultMaterial();
 
         return new Mesh(geometry, material);
+    }
+
+    public getLine(): Line {
+        const geometry: Geometry = new Geometry();
+        const material: LineBasicMaterial = new LineBasicMaterial({
+            color: 0x000000,
+            linewidth: 10 // TODO Разобраться, почему не работает
+        });
+
+        geometry.vertices.push(new Vector3(-1, 0, 0));
+        geometry.vertices.push(new Vector3(0, 1, 0));
+
+        return new Line(geometry, material);
     }
 
     // ---------------

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Mesh } from 'three';
+import { Mesh, Line, Object3D } from 'three';
 import * as _ from 'lodash';
 
 import { DrawingCoreService } from '../drawing-core.service';
@@ -34,12 +34,20 @@ export class ContainerComponent {
         this.drawingCoreService.addObjectToScene(sphere);
     }
 
+    public drawLine(): void {
+        const line: Line = this.drawingLibraryService.getLine();
+
+        this.setRandomPosition(line);
+        this.drawingCoreService.addObjectToScene(line);
+    }
+
     public cleanScene(): void {
         this.drawingCoreService.removeAllObjectToScene();
     }
 
-    private setRandomPosition(item: Mesh): void {
+    private setRandomPosition(item: Object3D): void {
         item.position.x = _.random(-2.5, 2.5);
         item.position.y = _.random(-2.5, 2.5);
+        item.position.z = _.random(-2.5, 2.5);
     }
 }

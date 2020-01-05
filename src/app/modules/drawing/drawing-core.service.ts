@@ -4,8 +4,8 @@ import {
     PerspectiveCamera,
     WebGLRenderer,
     Object3D,
-    Mesh,
-    Color
+    Color,
+    Light
 } from 'three';
 import * as _ from 'lodash';
 
@@ -49,7 +49,7 @@ export class DrawingCoreService {
 
     public removeAllObjectToScene(): void {
         const items: Object3D[] = _.filter(this.scene.children, (child) => {
-            return child instanceof Mesh;
+            return !(child instanceof Light);
         });
 
         _.forEach(items, (item) => {
