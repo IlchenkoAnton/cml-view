@@ -3,8 +3,10 @@ import {
     Scene,
     PerspectiveCamera,
     WebGLRenderer,
-    Object3D
+    Object3D,
+    Mesh
 } from 'three';
+import * as _ from 'lodash';
 
 @Injectable()
 export class DrawingCoreService {
@@ -35,11 +37,27 @@ export class DrawingCoreService {
         this.scene = new Scene();
 
         this.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-        this.camera.position.z = 2;
+        this.camera.position.z = 3;
     }
 
     public addObjectToScene(obj: Object3D): void {
         this.scene.add(obj);
+        this.redrawScene();
+    }
+
+    public removeAllObjectToScene(): void {
+        const items: Object3D[] = _.filter(this.scene.children, (child) => {
+            return child instanceof Mesh;
+        });
+
+        _.forEach(items, (item) => {
+            this.scene.remove(item);
+        });
+
+        this.redrawScene();
+    }
+
+    private redrawScene(): void {
         this.renderer.render(this.scene, this.camera);
     }
 }

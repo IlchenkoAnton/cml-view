@@ -13,6 +13,9 @@ export class ToolbarComponent {
     @Output()
     public addSphere: EventEmitter<void> = new EventEmitter<void>();
 
+    @Output()
+    public clean: EventEmitter<void> = new EventEmitter<void>();
+
     constructor() {}
 
     public selectCube(): void {
@@ -21,5 +24,9 @@ export class ToolbarComponent {
 
     public selectSphere(): void {
         this.addSphere.emit();
+    }
+
+    public selectClean(): void {
+        this.clean.emit();
     }
 }
