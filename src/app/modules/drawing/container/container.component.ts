@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { Mesh, Line, Object3D } from 'three';
 import * as _ from 'lodash';
 
@@ -15,6 +15,33 @@ import { DrawingLibraryService } from '../drawing-library.service';
     ]
 })
 export class ContainerComponent {
+    private rotationValueOnX: number = 0.1;
+    private rotationValueOnY: number = 0.1;
+
+    @HostListener('document:keydown', ['$event'])
+    public rotateScene(event: KeyboardEvent): void {
+        switch (event.code) {
+            case 'KeyW':
+                this.drawingCoreService.rotateXScene(this.rotationValueOnX);
+
+                break;
+            case 'KeyS':
+                this.drawingCoreService.rotateXScene(-this.rotationValueOnX);
+
+                break;
+            case 'KeyA':
+                this.drawingCoreService.rotateYScene(this.rotationValueOnY);
+
+                break;
+            case 'KeyD':
+                this.drawingCoreService.rotateYScene(-this.rotationValueOnY);
+
+                break;
+            default:
+                break;
+        }
+    }
+
     constructor(
         private readonly drawingCoreService: DrawingCoreService,
         private readonly drawingLibraryService: DrawingLibraryService
@@ -46,8 +73,7 @@ export class ContainerComponent {
     }
 
     private setRandomPosition(item: Object3D): void {
-        item.position.x = _.random(-2.5, 2.5);
-        item.position.y = _.random(-2.5, 2.5);
-        item.position.z = _.random(-2.5, 2.5);
+        item.position.x = _.random(-2.1, 2.1);
+        item.position.y = _.random(-2.1, 2.1);
     }
 }

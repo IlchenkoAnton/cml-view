@@ -5,7 +5,8 @@ import {
     WebGLRenderer,
     Object3D,
     Color,
-    Light
+    Light,
+    Euler
 } from 'three';
 import * as _ from 'lodash';
 
@@ -14,18 +15,6 @@ export class DrawingCoreService {
     private scene: Scene;
     private camera: PerspectiveCamera;
     private renderer: WebGLRenderer;
-
-    get Scene(): Scene {
-        return this.scene;
-    }
-
-    get Camera(): PerspectiveCamera {
-        return this.camera;
-    }
-
-    get Renderer(): WebGLRenderer {
-        return this.renderer;
-    }
 
     public initialization(canvas: HTMLCanvasElement): void {
         const fov: number = 75;                                             // Угол обзора камеры
@@ -55,6 +44,18 @@ export class DrawingCoreService {
         _.forEach(items, (item) => {
             this.scene.remove(item);
         });
+
+        this.redrawScene();
+    }
+
+    public rotateXScene(value: number): void {
+        this.scene.rotateX(value);
+
+        this.redrawScene();
+    }
+
+    public rotateYScene(value: number): void {
+        this.scene.rotateY(value);
 
         this.redrawScene();
     }
