@@ -7,8 +7,12 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'dashboard',
+                redirectTo: 'file',
                 pathMatch: 'full'
+            },
+            {
+                path: 'file',
+                loadChildren: () => import('./modules/file/file.module').then(module => module.FileModule)
             },
             {
                 path: 'dashboard',
@@ -34,4 +38,4 @@ const routes: Routes = [
         RouterModule
     ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
