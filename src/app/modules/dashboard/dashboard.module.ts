@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
+import { DashboardPageComponent } from './dashboard-page.component';
 import { DrawingModule } from '../drawing/drawing.module';
 
 
 @NgModule({
     declarations: [
-        DashboardComponent
+        DashboardPageComponent
     ],
     imports: [
         DashboardRoutingModule,
